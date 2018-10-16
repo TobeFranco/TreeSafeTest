@@ -1,9 +1,10 @@
 -- MySQL dump 10.13  Distrib 8.0.12, for Win64 (x86_64)
 --
--- Host: localhost    Database: examenes
+-- Host: localhost    Database: tests
 -- ------------------------------------------------------
 -- Server version	8.0.12
-
+create database tests;
+use tests;
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -27,11 +28,11 @@ CREATE TABLE `answers` (
   `ANSWER` text NOT NULL,
   `EVALUATION` float NOT NULL,
   `Questions_IDQUESTION` int(11) NOT NULL,
-  `Answers_Paper_IDANSWERS_PAPER` int(11) NOT NULL,
+  `Answers_Sheet_IDANSWERS_SHEET` int(11) NOT NULL,
   PRIMARY KEY (`IDANSWER`),
   KEY `fk_Answers_Questions1_idx` (`Questions_IDQUESTION`),
-  KEY `fk_Answers_Answers_Paper1_idx` (`Answers_Paper_IDANSWERS_PAPER`),
-  CONSTRAINT `fk_Answers_Answers_Paper1` FOREIGN KEY (`Answers_Paper_IDANSWERS_PAPER`) REFERENCES `answers_paper` (`idanswers_paper`),
+  KEY `fk_Answers_Answers_Sheet1_idx` (`Answers_Sheet_IDANSWERS_SHEET`),
+  CONSTRAINT `fk_Answers_Answers_Sheet1` FOREIGN KEY (`Answers_Sheet_IDANSWERS_SHEET`) REFERENCES `answers_sheet` (`idanswers_sheet`),
   CONSTRAINT `fk_Answers_Questions1` FOREIGN KEY (`Questions_IDQUESTION`) REFERENCES `questions` (`idquestion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -46,91 +47,31 @@ LOCK TABLES `answers` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `answers_paper`
+-- Table structure for table `answers_sheet`
 --
 
-DROP TABLE IF EXISTS `answers_paper`;
+DROP TABLE IF EXISTS `answers_sheet`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `answers_paper` (
-  `IDANSWERS_PAPER` int(11) NOT NULL,
-  `START` datetime NOT NULL,
-  `END` datetime NOT NULL,
-  `CALIFICATION` float NOT NULL,
-  `Students_MATRICULA` char(9) NOT NULL,
-  PRIMARY KEY (`IDANSWERS_PAPER`),
-  KEY `fk_Answers_Paper_Students1_idx` (`Students_MATRICULA`),
-  CONSTRAINT `fk_Answers_Paper_Students1` FOREIGN KEY (`Students_MATRICULA`) REFERENCES `students` (`matricula`)
+CREATE TABLE `answers_sheet` (
+  `IDANSWERS_SHEET` int(11) NOT NULL,
+  `START_DATE` datetime NOT NULL,
+  `END_DATE` datetime NOT NULL,
+  `EVALUATION` float NOT NULL,
+  `Students_IDSTUDENT` char(9) NOT NULL,
+  PRIMARY KEY (`IDANSWERS_SHEET`),
+  KEY `fk_Answers_Sheet_Students1_idx` (`Students_IDSTUDENT`),
+  CONSTRAINT `fk_Answers_Sheet_Students1` FOREIGN KEY (`Students_IDSTUDENT`) REFERENCES `students` (`idstudent`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `answers_paper`
+-- Dumping data for table `answers_sheet`
 --
 
-LOCK TABLES `answers_paper` WRITE;
-/*!40000 ALTER TABLE `answers_paper` DISABLE KEYS */;
-/*!40000 ALTER TABLE `answers_paper` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `exam`
---
-
-DROP TABLE IF EXISTS `exam`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `exam` (
-  `IDEXAM` int(11) NOT NULL AUTO_INCREMENT,
-  `DESCRIPTION` varchar(45) DEFAULT NULL,
-  `START_DATE` datetime DEFAULT NULL,
-  `END_DATE` datetime DEFAULT NULL,
-  `TOTAL_TIME` time DEFAULT NULL,
-  `Teachers_IDTEACHER` int(11) NOT NULL,
-  `Answers_Paper_IDANSWERS_PAPER` int(11) NOT NULL,
-  PRIMARY KEY (`IDEXAM`),
-  KEY `fk_Exam_Teachers1_idx` (`Teachers_IDTEACHER`),
-  KEY `fk_Exam_Answers_Paper1_idx` (`Answers_Paper_IDANSWERS_PAPER`),
-  CONSTRAINT `fk_Exam_Answers_Paper1` FOREIGN KEY (`Answers_Paper_IDANSWERS_PAPER`) REFERENCES `answers_paper` (`idanswers_paper`),
-  CONSTRAINT `fk_Exam_Teachers1` FOREIGN KEY (`Teachers_IDTEACHER`) REFERENCES `teachers` (`idteacher`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `exam`
---
-
-LOCK TABLES `exam` WRITE;
-/*!40000 ALTER TABLE `exam` DISABLE KEYS */;
-/*!40000 ALTER TABLE `exam` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `exam_has_questions`
---
-
-DROP TABLE IF EXISTS `exam_has_questions`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `exam_has_questions` (
-  `Exam_IDEXAM` int(11) NOT NULL,
-  `Questions_IDQUESTION` int(11) NOT NULL,
-  `QUANTITY` int(11) DEFAULT NULL,
-  PRIMARY KEY (`Exam_IDEXAM`,`Questions_IDQUESTION`),
-  KEY `fk_Exam_has_Questions_Questions1_idx` (`Questions_IDQUESTION`),
-  KEY `fk_Exam_has_Questions_Exam1_idx` (`Exam_IDEXAM`),
-  CONSTRAINT `fk_Exam_has_Questions_Exam1` FOREIGN KEY (`Exam_IDEXAM`) REFERENCES `exam` (`idexam`),
-  CONSTRAINT `fk_Exam_has_Questions_Questions1` FOREIGN KEY (`Questions_IDQUESTION`) REFERENCES `questions` (`idquestion`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `exam_has_questions`
---
-
-LOCK TABLES `exam_has_questions` WRITE;
-/*!40000 ALTER TABLE `exam_has_questions` DISABLE KEYS */;
-/*!40000 ALTER TABLE `exam_has_questions` ENABLE KEYS */;
+LOCK TABLES `answers_sheet` WRITE;
+/*!40000 ALTER TABLE `answers_sheet` DISABLE KEYS */;
+/*!40000 ALTER TABLE `answers_sheet` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -170,12 +111,12 @@ DROP TABLE IF EXISTS `groups_has_students`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `groups_has_students` (
   `Groups_IDGROUP` char(5) NOT NULL,
-  `Students_MATRICULA` char(9) NOT NULL,
-  PRIMARY KEY (`Groups_IDGROUP`,`Students_MATRICULA`),
-  KEY `fk_Groups_has_Students_Students1_idx` (`Students_MATRICULA`),
+  `Students_IDSTUDENT` char(9) NOT NULL,
+  PRIMARY KEY (`Groups_IDGROUP`,`Students_IDSTUDENT`),
+  KEY `fk_Groups_has_Students_Students1_idx` (`Students_IDSTUDENT`),
   KEY `fk_Groups_has_Students_Groups1_idx` (`Groups_IDGROUP`),
   CONSTRAINT `fk_Groups_has_Students_Groups1` FOREIGN KEY (`Groups_IDGROUP`) REFERENCES `groups` (`idgroup`),
-  CONSTRAINT `fk_Groups_has_Students_Students1` FOREIGN KEY (`Students_MATRICULA`) REFERENCES `students` (`matricula`)
+  CONSTRAINT `fk_Groups_has_Students_Students1` FOREIGN KEY (`Students_IDSTUDENT`) REFERENCES `students` (`idstudent`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -222,11 +163,11 @@ DROP TABLE IF EXISTS `students`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `students` (
-  `MATRICULA` char(9) NOT NULL,
+  `IDSTUDENT` char(9) NOT NULL,
   `USERS` varchar(10) NOT NULL,
   `PASS` varchar(8) NOT NULL,
   `EMAIL` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`MATRICULA`)
+  PRIMARY KEY (`IDSTUDENT`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -286,6 +227,65 @@ LOCK TABLES `teachers` WRITE;
 /*!40000 ALTER TABLE `teachers` DISABLE KEYS */;
 /*!40000 ALTER TABLE `teachers` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `test`
+--
+
+DROP TABLE IF EXISTS `test`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `test` (
+  `IDTEST` int(11) NOT NULL,
+  `DESCRIPTION` varchar(45) NOT NULL,
+  `START_DATE` datetime NOT NULL,
+  `END_DATE` datetime NOT NULL,
+  `TOTAL_TIME` time NOT NULL,
+  `Teachers_IDTEACHER` int(11) NOT NULL,
+  `Answers_Sheet_IDANSWERS_SHEET` int(11) NOT NULL,
+  PRIMARY KEY (`IDTEST`),
+  KEY `fk_Exam_Teachers1_idx` (`Teachers_IDTEACHER`),
+  KEY `fk_Test_Answers_Sheet1_idx` (`Answers_Sheet_IDANSWERS_SHEET`),
+  CONSTRAINT `fk_Exam_Teachers1` FOREIGN KEY (`Teachers_IDTEACHER`) REFERENCES `teachers` (`idteacher`),
+  CONSTRAINT `fk_Test_Answers_Sheet1` FOREIGN KEY (`Answers_Sheet_IDANSWERS_SHEET`) REFERENCES `answers_sheet` (`idanswers_sheet`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `test`
+--
+
+LOCK TABLES `test` WRITE;
+/*!40000 ALTER TABLE `test` DISABLE KEYS */;
+/*!40000 ALTER TABLE `test` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `test_has_questions`
+--
+
+DROP TABLE IF EXISTS `test_has_questions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `test_has_questions` (
+  `Test_IDTEST` int(11) NOT NULL,
+  `Questions_IDQUESTION` int(11) NOT NULL,
+  PRIMARY KEY (`Test_IDTEST`,`Questions_IDQUESTION`),
+  KEY `fk_Test_has_Questions_Questions1_idx` (`Questions_IDQUESTION`),
+  KEY `fk_Test_has_Questions_Test1_idx` (`Test_IDTEST`),
+  CONSTRAINT `fk_Test_has_Questions_Questions1` FOREIGN KEY (`Questions_IDQUESTION`) REFERENCES `questions` (`idquestion`),
+  CONSTRAINT `fk_Test_has_Questions_Test1` FOREIGN KEY (`Test_IDTEST`) REFERENCES `test` (`idtest`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `test_has_questions`
+--
+
+LOCK TABLES `test_has_questions` WRITE;
+/*!40000 ALTER TABLE `test_has_questions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `test_has_questions` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -296,4 +296,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-14 19:08:30
+-- Dump completed on 2018-10-16  8:05:07
