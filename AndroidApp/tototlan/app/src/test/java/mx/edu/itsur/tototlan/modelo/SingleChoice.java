@@ -8,11 +8,16 @@ import java.util.List;
 public class SingleChoice extends  Question{
 
     private Genson genson;
- private Question question;
+    private QuestionData question;
 
-    public SingleChoice(Question question) {
+    public SingleChoice(QuestionData questionDatan) {
         this.question = question;
         this.genson = new Genson();
+
+    }
+
+    public SingleChoice() {
+       this(new QuestionData());
 
     }
 
@@ -35,4 +40,14 @@ public class SingleChoice extends  Question{
        String json = genson.serialize(choices);
        question.getData().setAnswers(json);
     }
+
+    public QuestionData getData() {
+        return this.question.getData();
+    }
+
+    public void setData(QuestionData data) {
+        this.question.setData(data);
+    }
+
+
 }

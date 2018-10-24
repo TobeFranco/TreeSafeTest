@@ -1,7 +1,5 @@
 package mx.edu.itsur.tototlan.accesoDatos;
 
-import mx.edu.itsur.tototlan.modelo.Alumno;
-
 public class Persistencia {
 
     /* Para obtener un objeto con la funcionalidad de persistencia a la base de datos.

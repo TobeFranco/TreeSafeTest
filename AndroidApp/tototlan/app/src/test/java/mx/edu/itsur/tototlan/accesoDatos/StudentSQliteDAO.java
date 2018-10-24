@@ -5,21 +5,22 @@ import android.database.sqlite.SQLiteException;
 import java.util.List;
 import java.util.Map;
 
-import mx.edu.itsur.tototlan.modelo.Alumno;
 
-class AlumnoSQliteDAO implements AlumnoDAO {
+import mx.edu.itsur.tototlan.modelo.Student;
+
+class StudentSQliteDAO implements GenericoDAO<Student> {
     @Override
-    public boolean agregar(Alumno entidad) throws SQLiteException {
+    public boolean agregar(Student entidad) throws SQLiteException {
         return false;
     }
 
     @Override
-    public Alumno obtener(long identificador) throws SQLiteException {
+    public Student obtener(long identificador) throws SQLiteException {
         return null;
     }
 
     @Override
-    public boolean modificar(Alumno entidad) throws SQLiteException {
+    public boolean modificar(Student entidad) throws SQLiteException {
         return false;
     }
 
@@ -29,12 +30,12 @@ class AlumnoSQliteDAO implements AlumnoDAO {
     }
 
     @Override
-    public List<Alumno> todos() throws SQLiteException {
+    public List<Student> todos() throws SQLiteException {
         return null;
     }
 
     @Override
-    public List<Alumno> buscar(Map<String, Object> criterios) throws SQLiteException {
+    public List<Student> buscar(Map<String, Object> criterios) throws SQLiteException {
         return null;
     }
 }
