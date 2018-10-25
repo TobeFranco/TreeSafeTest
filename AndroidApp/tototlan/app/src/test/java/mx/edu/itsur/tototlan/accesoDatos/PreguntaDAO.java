@@ -7,7 +7,7 @@ import java.util.Map;
 
 import mx.edu.itsur.tototlan.modelo.Question;
 
-public interface PreguntaDAO extends GenericoDAO <Question>{
+public interface PreguntaDAO extends GenericDAO<Question> {
 
     public boolean agregar(Question entidad) throws SQLiteException;
 

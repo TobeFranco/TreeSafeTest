@@ -8,7 +8,7 @@ import java.util.Map;
 
 import mx.edu.itsur.tototlan.modelo.Student;
 
-class StudentSQliteDAO implements GenericoDAO<Student> {
+class StudentSQliteDAO implements GenericDAO<Student> {
     @Override
     public boolean agregar(Student entidad) throws SQLiteException {
         return false;

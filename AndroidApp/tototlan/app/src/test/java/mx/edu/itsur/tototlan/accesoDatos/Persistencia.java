@@ -7,7 +7,7 @@ public class Persistencia {
      * AlumnoDao basedatos = Persistencia.obtenerObjetoAccesoDatos(Alumno){
      *
      */
-    public static GenericoDAO obtenerObjetoAccesoDatos(Class entidad ){
+    public static GenericDAO obtenerObjetoAccesoDatos(Class entidad ){
 
         if(entidad.getClass().isInstance(Alumno.class)){
             return new AlumnoSQliteDAO();

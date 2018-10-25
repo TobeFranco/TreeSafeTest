@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteException;
 import java.util.List;
 import java.util.Map;
 
-public interface HojaRespuestaDAO extends GenericoDAO <HojaRespuesta>{
+public interface HojaRespuestaDAO extends GenericDAO<HojaRespuesta> {
 
     public boolean agregar(HojaRespuesta entidad) throws SQLiteException;
 

@@ -7,7 +7,7 @@ import java.util.Map;
 
 import mx.edu.itsur.tototlan.modelo.Student;
 
-interface StudentDAO extends GenericoDAO<Student>{
+interface StudentDAO extends GenericDAO<Student> {
     @Override
     public boolean agregar(Student entidad) throws SQLiteException;
 
