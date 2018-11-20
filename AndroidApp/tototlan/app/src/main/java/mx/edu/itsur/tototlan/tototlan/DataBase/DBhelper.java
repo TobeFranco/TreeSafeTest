@@ -2,10 +2,11 @@ package mx.edu.itsur.tototlan.tototlan.DataBase;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
 import mx.edu.itsur.tototlan.tototlan.accesoDatos.StudentSQliteDAO;
 
-public class DBhelper extends StudentSQliteDAO {
+public class DBhelper extends SQLiteOpenHelper {
 
 
     public static final int DATABASE_VERSION = 1;
@@ -16,36 +17,24 @@ public class DBhelper extends StudentSQliteDAO {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    public DBhelper() {
-        super();
-    }
-
-
+    @Override
     public void onCreate(SQLiteDatabase db) {
-
-
-
-        db.execSQL(CREATE_TABLE);
+        db.execSQL(Database.CREATE_TABLE);
+        db.execSQL(Database.CREATE_TABLE_TEST);
+        db.execSQL(Database.CREATE_TABLE_QUESTIONS);
+        db.execSQL(Database.CREATE_TABLE_TEST_HAS_QUESTIONS);
+        db.execSQL(Database.CREATE_TABLE_ANSWERS_SHEET);
+        db.execSQL(Database.CREATE_TABLE_ANSWERS);
     }
 
+    @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String SQL_DELETE_STUDENDT_TABLE = "DROP TABLE IF EXISTS " + STUDENT_TABLE;
-        db.execSQL(SQL_DELETE_STUDENDT_TABLE);
-        onCreate(db);
-    }
 
-    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        onUpgrade(db, oldVersion, newVersion);
     }
 
 
-    public SQLiteDatabase getReadableDatabase() {
-        return getReadableDatabase();
-    }
 
-    public SQLiteDatabase getWritableDatabase() {
-        return  getReadableDatabase();
-    }
+
 }
 
 
