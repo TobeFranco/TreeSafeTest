@@ -1,6 +1,8 @@
 package mx.edu.itsur.tototlan.tototlan.modelo;
 
-public class Answer {
+import java.io.Serializable;
+
+public class Answer implements Serializable{
 
     private long idAnswer;
     private String answer;

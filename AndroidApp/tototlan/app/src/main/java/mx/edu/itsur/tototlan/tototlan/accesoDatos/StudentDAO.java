@@ -28,5 +28,6 @@ interface StudentDAO extends GenericoDAO<Student>{
 
     @Override
     public List<Student> find (Map<String, Object>criteria) throws SQLiteException;
+
 }
 

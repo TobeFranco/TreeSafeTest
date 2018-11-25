@@ -9,12 +9,11 @@ import mx.edu.itsur.tototlan.tototlan.modelo.Answer;
 
 
 public interface AnswerDAO   extends GenericoDAO< Answer>{
-
-    public boolean add( Answer entidad) throws SQLiteException;
+    public boolean add(Answer entidad) throws SQLiteException;
 
     public  Answer get(long identificador) throws SQLiteException;
 
-    public boolean update( Answer entidad) throws SQLiteException;
+    public boolean update(Answer entidad) throws SQLiteException;
 
     public boolean delete(long identificador) throws  SQLiteException;
 

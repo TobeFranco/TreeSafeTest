@@ -11,10 +11,9 @@ public class Persistencia {
      */
     public static GenericoDAO obtenerObjetoAccesoDatos(Class entidad ){
 
-        if(entidad.getClass().isInstance(Student.class)){
-            return new StudentSQliteDAO();
-        }
-
+//        if(entidad.getClass().isInstance(Student.class)){
+//            return new StudentSQliteDAO();
+//        }
         /*if(entidad.getClass().isInstance(Alumno.class)){
             return new AlumnoSQliteDAO();
         }*/

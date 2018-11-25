@@ -2,9 +2,10 @@ package mx.edu.itsur.tototlan.tototlan.modelo;
 
 import java.util.Objects;
 
-public class QuestionData extends Question {
+public class QuestionData {
 
     public enum  QuestionType{OPEN,MULTIPLE_CHOICE,SINGLE_CHOICE, TRUE_FALSE,RELATIONAL};
+    private String IdQuestion;
     private String statement;
     private String answers;
     private String correct;
@@ -23,6 +24,14 @@ public class QuestionData extends Question {
 
     public String getstatement() {
         return statement;
+    }
+
+    public String getIdQuestion() {
+        return IdQuestion;
+    }
+
+    public void setIdQuestion(String idQuestion) {
+        IdQuestion = idQuestion;
     }
 
     public void setstatement(String statement) {

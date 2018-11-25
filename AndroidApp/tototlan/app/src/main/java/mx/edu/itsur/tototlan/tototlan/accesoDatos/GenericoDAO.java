@@ -17,7 +17,7 @@ public interface GenericoDAO <T> {
 
     public List<T> getAll() throws  SQLiteException;
 
-    public List<T> find(Map <String, Object> criteries) throws SQLiteException;
+    public List<T> find(Map<String, Object> criteries) throws SQLiteException;
 
 
 

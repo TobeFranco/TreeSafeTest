@@ -1,9 +1,12 @@
 package mx.edu.itsur.tototlan.tototlan.modelo;
 
-public abstract class Question {
+import java.io.Serializable;
 
+public class Question implements Serializable {
+    private boolean Type;
     private long idQuestion;
     private QuestionData data;
+
 
 
     public Question(QuestionData questionData) {
@@ -28,5 +31,13 @@ public abstract class Question {
 
     public void setData(QuestionData data) {
         this.data = data;
+    }
+
+    public QuestionData.QuestionType getType() {
+        return this.getData().getType();
+    }
+
+    public void setType(QuestionData.QuestionType type) {
+        this.getData().setType(type);
     }
 }

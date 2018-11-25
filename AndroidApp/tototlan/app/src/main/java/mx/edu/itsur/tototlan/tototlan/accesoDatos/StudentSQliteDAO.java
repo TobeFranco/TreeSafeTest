@@ -19,10 +19,9 @@ import mx.edu.itsur.tototlan.tototlan.modelo.Student;
 
 public class StudentSQliteDAO extends Database implements GenericoDAO <Student> {
 
-
-    public StudentSQliteDAO() {
-
-
+    private DBhelper mDbHelper;
+    public StudentSQliteDAO(Context context) {
+        mDbHelper = new DBhelper(context);
     }
 
     public StudentSQliteDAO(Context context, String databaseName, Object o, int databaseVersion) {
@@ -31,8 +30,6 @@ public class StudentSQliteDAO extends Database implements GenericoDAO <Student> 
 
     @Override
     public boolean add(Student entity) throws SQLiteException {
-
-        DBhelper mDbHelper = new DBhelper();
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
 
@@ -65,7 +62,6 @@ public class StudentSQliteDAO extends Database implements GenericoDAO <Student> 
     @Override
 
     public Student get(long identifier) throws SQLiteException {
-        DBhelper mDbHelper = new DBhelper();
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
 
@@ -95,7 +91,6 @@ public class StudentSQliteDAO extends Database implements GenericoDAO <Student> 
 
     @Override
     public boolean update(Student entity) throws SQLiteException {
-        DBhelper mDbHelper = new DBhelper();
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         try {
@@ -130,8 +125,6 @@ public class StudentSQliteDAO extends Database implements GenericoDAO <Student> 
 
     @Override
     public boolean delete(long identifier) throws SQLiteException {
-
-        DBhelper mDbHelper = new DBhelper();
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
 
@@ -161,7 +154,6 @@ public class StudentSQliteDAO extends Database implements GenericoDAO <Student> 
     public List<Student> getAll() throws SQLiteException {
 
         List<Student> studentList = new ArrayList<Student>();
-        DBhelper mDbHelper = new DBhelper();
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         Cursor cursor = db.query("Student", null, null, null, null, null, null);
@@ -181,7 +173,6 @@ public class StudentSQliteDAO extends Database implements GenericoDAO <Student> 
 
     @Override
     public List<Student> find(Map<String, Object> criteria) throws SQLiteException {
-        DBhelper mDbHelper = new DBhelper();
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
         Set<String> columns = criteria.keySet();
         List<Student> studentList = new ArrayList<Student>();

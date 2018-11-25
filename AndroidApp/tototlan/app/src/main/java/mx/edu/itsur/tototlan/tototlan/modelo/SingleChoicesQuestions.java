@@ -5,40 +5,39 @@ import com.owlike.genson.Genson;
 
 import java.util.List;
 
-public class SingleChoice extends  Question{
+public class SingleChoicesQuestions extends  Question{
 
     private Genson genson;
-    private QuestionData question;
+    private Question question;
 
-    public SingleChoice(QuestionData questionDatan) {
+    public SingleChoicesQuestions(Question question) {
         this.question = question;
         this.genson = new Genson();
-
+        this.question.setType(QuestionData.QuestionType.SINGLE_CHOICE);
     }
 
-    public SingleChoice() {
-       this(new QuestionData());
-
+    public SingleChoicesQuestions() {
+        this(new Question());
     }
 
     public void setStatement(String statement){
         this.question.getData().setstatement(statement);
     }
+
     public String getStatement(){
-       return this.question.getData().getstatement();
+        return this.question.getData().getstatement();
 
     }
 
-
     public List<String> getChoices(){
-       String json = question.getData().getAnswers();
-       List<String> choises = genson.deserialize(json, new GenericType<List<String>>(){});
+        String json = question.getData().getAnswers();
+        List<String> choises = genson.deserialize(json, new GenericType<List<String>>(){});
         return  choises;
     }
 
     public void setChoices(List<String> choices){
-       String json = genson.serialize(choices);
-       question.getData().setAnswers(json);
+        String json = genson.serialize(choices);
+        question.getData().setAnswers(json);
     }
 
     public QuestionData getData() {
