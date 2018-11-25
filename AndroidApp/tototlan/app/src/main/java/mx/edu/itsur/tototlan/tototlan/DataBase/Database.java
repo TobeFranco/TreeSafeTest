@@ -36,6 +36,7 @@ public class Database {
             COLUMN_TEACHER_NAME + " VARCHAR(50)," +
             COLUMN_GROUP_CODE + " VARCHAR(10) )";
 
+
     //TABLE QUESTIONS
     private static final String QUESTIONS_TABLE= "QUESTIONS";
     private static final String COLUMN_IDQUESTION = "IDQUESTION";

@@ -11,11 +11,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import mx.edu.itsur.tototlan.tototlan.Vista.OpenQuestion;
 import mx.edu.itsur.tototlan.tototlan.Vista.QuestionFragment;
+import mx.edu.itsur.tototlan.tototlan.accesoDatos.TestSQliteDAO;
 import mx.edu.itsur.tototlan.tototlan.modelo.Answer;
 import mx.edu.itsur.tototlan.tototlan.modelo.Question;
 import mx.edu.itsur.tototlan.tototlan.modelo.QuestionData;
@@ -66,5 +71,47 @@ public class MainActivity extends AppCompatActivity {
                         Log.v("Respuesta",questionFragment.getAnswer());
             }
         });
+
+        mx.edu.itsur.tototlan.tototlan.modelo.Test t = new mx.edu.itsur.tototlan.tototlan.modelo.Test();
+        TestSQliteDAO sqTest = new TestSQliteDAO(getApplicationContext());
+
+        //'2007-01-01 10:00:00'
+
+        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        Time startingTime = new Time(100);
+
+
+        //t.setIdTest(1);
+        t.setDesciption("Examen facil");
+        t.setGroupCode("123");
+        t.setTeacherName("Tierritas");
+        try {
+            t.setStartDate(s.parse(obtenerFecha()));
+            t.setEndDate(s.parse(obtenerFecha()));
+            t.setTotalTime(startingTime);
+        } catch (ParseException e) {
+            Log.e("ERROR2",e.getMessage());
+        }
+        sqTest.add(t);
+        t = sqTest.get(1);
+
+
+
+        t.setIdTest(1);
+        t.setDesciption("Examen dificil");
+        sqTest.update(t);
+        Toast.makeText(this,"ID"+t.getIdTest()+" tiempo" +t.getTotalTime() +" desc"+t.getDesciption(),Toast.LENGTH_LONG).show();
+
+
+
+    }
+
+
+    private String obtenerFecha(){
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String fechaActual = format.format(cal.getTime());
+        return fechaActual;
     }
 }

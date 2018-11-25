@@ -30,8 +30,8 @@ public class StudentSQliteDAO extends Database implements GenericoDAO <Student> 
 
     @Override
     public boolean add(Student entity) throws SQLiteException {
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         try {
 
@@ -126,8 +126,6 @@ public class StudentSQliteDAO extends Database implements GenericoDAO <Student> 
     @Override
     public boolean delete(long identifier) throws SQLiteException {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-
         try {
 
             String selection = COLUMN_ID + " = ?";
@@ -174,6 +172,7 @@ public class StudentSQliteDAO extends Database implements GenericoDAO <Student> 
     @Override
     public List<Student> find(Map<String, Object> criteria) throws SQLiteException {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
         Set<String> columns = criteria.keySet();
         List<Student> studentList = new ArrayList<Student>();
         String filter = "";
