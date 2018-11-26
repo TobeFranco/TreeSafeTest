@@ -8,11 +8,14 @@ import java.util.List;
 public class OpenQuestion extends  Question{
     private Genson genson;
     private Question question;
+    //Para accesar al tipo de pregunta se tiene que acceder al questiondata
+    private QuestionData questionData;
 
     public OpenQuestion(Question question) {
         this.question = question;
         this.genson = new Genson();
-        this.question.setType(QuestionData.QuestionType.OPEN);
+        this.questionData.setType("Open");
+        //this.question.setType(QuestionData.QuestionType.OPEN);
     }
 
     public OpenQuestion() {

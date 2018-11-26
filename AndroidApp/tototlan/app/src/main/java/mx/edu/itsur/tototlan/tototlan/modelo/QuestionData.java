@@ -2,20 +2,22 @@ package mx.edu.itsur.tototlan.tototlan.modelo;
 
 import java.util.Objects;
 
-public class QuestionData {
+public class QuestionData extends Question{
 
-    public enum  QuestionType{OPEN,MULTIPLE_CHOICE,SINGLE_CHOICE, TRUE_FALSE,RELATIONAL};
-    private String IdQuestion;
+    //public enum  QuestionType{OPEN,MULTIPLE_CHOICE,SINGLE_CHOICE, TRUE_FALSE,RELATIONAL};
+    private long IdQuestion;
     private String statement;
     private String answers;
     private String correct;
-    private QuestionType type;
+    //private QuestionType type;
+    //Types {'Open','Multiple_Choice','Single_Choice','True_False','Relational'
+    private String type;
 
     public QuestionData() {
     }
 
 
-    public QuestionData(String statement, String answers, String correct, QuestionType type) {
+    public QuestionData(String statement, String answers, String correct, String type) {
         this.statement = statement;
         this.answers = answers;
         this.correct = correct;
@@ -26,11 +28,11 @@ public class QuestionData {
         return statement;
     }
 
-    public String getIdQuestion() {
+    public long getIdQuestion() {
         return IdQuestion;
     }
 
-    public void setIdQuestion(String idQuestion) {
+    public void setIdQuestion(long idQuestion) {
         IdQuestion = idQuestion;
     }
 
@@ -54,11 +56,11 @@ public class QuestionData {
         this.correct = correct;
     }
 
-    public QuestionType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(QuestionType type) {
+    public void setType(String type) {
         this.type = type;
     }
 

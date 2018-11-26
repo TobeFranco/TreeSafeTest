@@ -47,7 +47,7 @@ public class Database {
 
     public static final String CREATE_TABLE_QUESTIONS = "create table " + QUESTIONS_TABLE + " ("+
             COLUMN_IDQUESTION + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
-            COLUMN_TYPE + " TEXT CHECK( TYPE IN ('Abierta','Opcion Multiple','Opcion Unica','Verdadero/Falso','Relacionar Columnas')),"+
+            COLUMN_TYPE + " TEXT CHECK( TYPE IN ('Open','Multiple_Choice','Single_Choice','True_False','Relational')),"+
             COLUMN_STATEMENT + "TEXT,"+
             COLUMN_ANSWERS + " TEXT,"+
             COLUMN_CORRECT + " CORRECT)";

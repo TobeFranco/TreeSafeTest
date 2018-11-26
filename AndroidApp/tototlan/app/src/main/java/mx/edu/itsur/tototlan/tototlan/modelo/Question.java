@@ -33,11 +33,11 @@ public class Question implements Serializable {
         this.data = data;
     }
 
+    /*
     public QuestionData.QuestionType getType() {
         return this.getData().getType();
     }
-
     public void setType(QuestionData.QuestionType type) {
         this.getData().setType(type);
-    }
+    }*/
 }

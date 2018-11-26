@@ -9,11 +9,14 @@ public class SingleChoicesQuestions extends  Question{
 
     private Genson genson;
     private Question question;
+    //Para accesar al tipo de pregunta se tiene que acceder al questiondata
+    private QuestionData questionData;
 
     public SingleChoicesQuestions(Question question) {
         this.question = question;
         this.genson = new Genson();
-        this.question.setType(QuestionData.QuestionType.SINGLE_CHOICE);
+        this.questionData.setType("Single_Choice");
+        //this.question.setType(QuestionData.QuestionType.SINGLE_CHOICE);
     }
 
     public SingleChoicesQuestions() {
