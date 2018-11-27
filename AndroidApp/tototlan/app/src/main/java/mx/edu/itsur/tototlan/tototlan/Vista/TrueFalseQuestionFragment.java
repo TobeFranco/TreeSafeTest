@@ -8,21 +8,23 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import mx.edu.itsur.tototlan.tototlan.R;
 import mx.edu.itsur.tototlan.tototlan.modelo.Answer;
 import mx.edu.itsur.tototlan.tototlan.modelo.Question;
+import mx.edu.itsur.tototlan.tototlan.modelo.TrueFalseQuestion;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link OpenQuestion.OnFragmentInteractionListener} interface
+ * {@link TrueFalseQuestionFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link OpenQuestion#newInstance} factory method to
+ * Use the {@link TrueFalseQuestionFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class OpenQuestion extends QuestionFragment {
+public class TrueFalseQuestionFragment extends QuestionFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "question";
@@ -32,9 +34,10 @@ public class OpenQuestion extends QuestionFragment {
     private Question question;
     private Answer answer;
     private OnFragmentInteractionListener mListener;
-    EditText editText;
+    RadioGroup radioGroup;
+    RadioButton radioButtonTrue,radioButtonFalse;
     private Activity activity;
-    public OpenQuestion() {
+    public TrueFalseQuestionFragment() {
         // Required empty public constructor
     }
 
@@ -45,8 +48,8 @@ public class OpenQuestion extends QuestionFragment {
      * @return A new instance of fragment OpenQuestion.
      */
     // TODO: Rename and change types and number of parameters
-    public static OpenQuestion newInstance(Question question, Answer answer) {
-        OpenQuestion fragment = new OpenQuestion();
+    public static TrueFalseQuestionFragment newInstance(TrueFalseQuestion question, Answer answer) {
+        TrueFalseQuestionFragment fragment = new TrueFalseQuestionFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_PARAM1, question);
         args.putSerializable(ARG_PARAM2, answer);
@@ -68,8 +71,10 @@ public class OpenQuestion extends QuestionFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 //        if (getArguments() != null) {
-        View view = inflater.inflate(R.layout.fragment_open_question, container, false);
-        editText = view.findViewById(R.id.txtAnswer);
+        View view = inflater.inflate(R.layout.fragment_true_false_question, container, false);
+        radioButtonFalse = view.findViewById(R.id.rbFalse);
+        radioButtonTrue = view.findViewById(R.id.rbTrue);
+        radioGroup = view.findViewById(R.id.RGButtons);
 //        String respuestaPrevia = answer.getAnswer();
 //        editText.setText(respuestaPrevia);
         return view;
@@ -102,8 +107,13 @@ public class OpenQuestion extends QuestionFragment {
 
     @Override
     public String getAnswer() {
-        String respuestaPrevia = editText.getText().toString();
-        return respuestaPrevia;
+        if (radioButtonTrue.isSelected()){
+            return (String) radioButtonFalse.getText();
+        }else if (radioButtonFalse.isSelected()){
+            return (String) radioButtonTrue.getText();
+        }else{
+            return "";
+        }
     }
 
     /**

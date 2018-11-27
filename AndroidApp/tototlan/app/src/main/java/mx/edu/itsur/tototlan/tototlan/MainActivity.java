@@ -18,30 +18,30 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import mx.edu.itsur.tototlan.tototlan.Vista.OpenQuestion;
 import mx.edu.itsur.tototlan.tototlan.Vista.QuestionFragment;
 import mx.edu.itsur.tototlan.tototlan.accesoDatos.TestSQliteDAO;
 import mx.edu.itsur.tototlan.tototlan.modelo.Answer;
+import mx.edu.itsur.tototlan.tototlan.modelo.OpenQuestion;
 import mx.edu.itsur.tototlan.tototlan.modelo.Question;
 import mx.edu.itsur.tototlan.tototlan.modelo.QuestionData;
 import mx.edu.itsur.tototlan.tototlan.modelo.SingleChoicesQuestions;
+import mx.edu.itsur.tototlan.tototlan.modelo.TrueFalseQuestion;
 
 public class MainActivity extends AppCompatActivity {
     TextView NumQuestion;
     Button Next;
     EditText Answers;
-    private mx.edu.itsur.tototlan.tototlan.modelo.OpenQuestion question = new mx.edu.itsur.tototlan.tototlan.modelo.OpenQuestion();
-    private Answer answer= new Answer();
+       private Answer answer= new Answer();
     private SingleChoicesQuestions questions = new SingleChoicesQuestions();
-    //private QuestionFragment questionFragment;
-    private QuestionFragment questionFragment  = new QuestionFragment.QuestionFragmentBuilder(question,answer).build();
+    private TrueFalseQuestion trueFalseQuestion = new TrueFalseQuestion();
+    private OpenQuestion openQuestion = new OpenQuestion();
+    private QuestionFragment questionFragment  = new QuestionFragment.QuestionFragmentBuilder(questions,answer).build();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         NumQuestion=findViewById(R.id.lblNumQuestion);
-        //Question=findViewById(R.id.lblQuestion);
         Next=findViewById(R.id.btnNext);
         Answers=findViewById(R.id.txtAnswer);
         // NumQuestion.setText(question.getIdQuestion()+"");
@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Toast toast = new Toast(getApplicationContext());
-                        //toast.setText(Toast.makeText(getApplicationContext(), answer.getAnswer(),Toast.LENGTH_SHORT));
                         Log.v("Respuesta",questionFragment.getAnswer());
             }
         });

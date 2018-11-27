@@ -2,20 +2,17 @@ package mx.edu.itsur.tototlan.tototlan.modelo;
 
 import com.owlike.genson.Genson;
 
-public class OpenQuestionM extends  Question{
+public class TrueFalseQuestion extends Question {
     private Genson genson;
     private Question question;
-    //Para accesar al tipo de pregunta se tiene que acceder al questiondata
-    private QuestionData questionData;
 
-    public OpenQuestionM(Question question) {
+    public TrueFalseQuestion(Question question) {
         this.question = question;
         this.genson = new Genson();
-        this.questionData.setType("Open");
-        //this.question.setType(QuestionData.QuestionType.OPEN);
+        this.question.setType(QuestionData.QuestionType.TRUE_FALSE);
     }
 
-    public OpenQuestionM() {
+    public TrueFalseQuestion() {
         this(new Question());
     }
 
@@ -44,4 +41,3 @@ public class OpenQuestionM extends  Question{
     }
 
 }
-
