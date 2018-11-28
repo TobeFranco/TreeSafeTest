@@ -35,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private SingleChoicesQuestions questions = new SingleChoicesQuestions();
     private TrueFalseQuestion trueFalseQuestion = new TrueFalseQuestion();
     private OpenQuestion openQuestion = new OpenQuestion();
-    private QuestionFragment questionFragment  = new QuestionFragment.QuestionFragmentBuilder(questions,answer).build();
+    private QuestionFragment questionFragment  = new QuestionFragment.QuestionFragmentBuilder(openQuestion,answer).build();
+    private FragmentTransaction transaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,20 +55,20 @@ public class MainActivity extends AppCompatActivity {
         opciones.add("op 3");
         //question.setChoices(opciones);
 //        QuestionFragment questionFragment  = new QuestionFragment.QuestionFragmentBuilder(question,answer).build();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
         //question.setType(QuestionData.QuestionType.OPEN);
         answer.setAnswer("hola");
-//        //Remplazar el fragmento en la vista
+        transaction = getSupportFragmentManager().beginTransaction();
         if (questionFragment!=null) {
             transaction.add(R.id.fragment_container, questionFragment);
-//        transaction.addToBackStack(null);
             transaction.commit();
         }
         Next.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast toast = new Toast(getApplicationContext());
-                        Log.v("Respuesta",questionFragment.getAnswer());
+                        //aqui es donde puede cambiar el fragmento que desees
+                        questionFragment = new QuestionFragment.QuestionFragmentBuilder(questions,answer).build();
+                        CambiarFragmento();
             }
         });
 
@@ -105,7 +106,15 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    private void CambiarFragmento(){
+        transaction = getSupportFragmentManager().beginTransaction();
+        if (questionFragment!=null) {
 
+            transaction.replace(R.id.fragment_container, questionFragment);
+//            transaction.add(R.id.fragment_container, questionFragment);
+            transaction.commit();
+        }
+    }
 
     private String obtenerFecha(){
         Calendar cal = Calendar.getInstance();
