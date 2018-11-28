@@ -9,7 +9,7 @@ public class TrueFalseQuestion extends Question {
     public TrueFalseQuestion(Question question) {
         this.question = question;
         this.genson = new Genson();
-        this.question.setType(QuestionData.QuestionType.TRUE_FALSE);
+      //  this.question.setType(QuestionData.QuestionType.TRUE_FALSE);
     }
 
     public TrueFalseQuestion() {

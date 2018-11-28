@@ -4,8 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import mx.edu.itsur.tototlan.tototlan.accesoDatos.StudentSQliteDAO;
-
 public class DBhelper extends SQLiteOpenHelper {
 
 

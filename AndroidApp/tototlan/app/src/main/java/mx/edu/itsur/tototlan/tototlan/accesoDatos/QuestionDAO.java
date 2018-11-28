@@ -5,10 +5,9 @@ import android.database.sqlite.SQLiteException;
 import java.util.List;
 import java.util.Map;
 
-
 import mx.edu.itsur.tototlan.tototlan.modelo.Question;
 
-public interface QuestionDAO extends GenericoDAO<Question>{
+public interface QuestionDAO extends GenericoDAO<Question> {
 
 
     public boolean add(Question entidad) throws SQLiteException;

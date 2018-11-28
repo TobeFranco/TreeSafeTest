@@ -13,12 +13,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import mx.edu.itsur.tototlan.tototlan.R;
 import mx.edu.itsur.tototlan.tototlan.modelo.Answer;
-import mx.edu.itsur.tototlan.tototlan.modelo.Question;
 import mx.edu.itsur.tototlan.tototlan.modelo.SingleChoicesQuestions;
 
 /**

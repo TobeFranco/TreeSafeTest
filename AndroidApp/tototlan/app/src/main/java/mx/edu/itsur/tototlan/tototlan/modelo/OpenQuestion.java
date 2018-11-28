@@ -1,9 +1,6 @@
 package mx.edu.itsur.tototlan.tototlan.modelo;
 
-import com.owlike.genson.GenericType;
 import com.owlike.genson.Genson;
-
-import java.util.List;
 
 public class OpenQuestion extends  Question{
     private Genson genson;

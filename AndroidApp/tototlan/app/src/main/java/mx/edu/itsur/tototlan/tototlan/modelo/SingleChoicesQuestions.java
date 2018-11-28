@@ -5,7 +5,7 @@ import com.owlike.genson.Genson;
 
 import java.util.List;
 
-public class SingleChoicesQuestions extends  Question{
+public class SingleChoicesQuestions extends Question {
 
     private Genson genson;
     private Question question;

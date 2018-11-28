@@ -2,7 +2,7 @@ package mx.edu.itsur.tototlan.tototlan.modelo;
 
 import java.util.Objects;
 
-public class QuestionData extends Question{
+public class QuestionData extends Question {
 
     //public enum  QuestionType{OPEN,MULTIPLE_CHOICE,SINGLE_CHOICE, TRUE_FALSE,RELATIONAL};
     private long IdQuestion;

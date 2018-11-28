@@ -17,7 +17,7 @@ import mx.edu.itsur.tototlan.tototlan.DataBase.DBhelper;
 import mx.edu.itsur.tototlan.tototlan.DataBase.Database;
 import mx.edu.itsur.tototlan.tototlan.modelo.Student;
 
-public class StudentSQliteDAO extends Database implements GenericoDAO <Student> {
+public class StudentSQliteDAO extends Database implements GenericoDAO<Student> {
 
     private DBhelper mDbHelper;
     public StudentSQliteDAO(Context context) {

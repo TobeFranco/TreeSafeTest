@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".Vista.SingleChoice">
 
-    <!-- TODO: Update blank fragment layout -->
 
 
     <LinearLayout

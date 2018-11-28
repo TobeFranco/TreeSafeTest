@@ -7,7 +7,7 @@ import java.util.Map;
 
 import mx.edu.itsur.tototlan.tototlan.modelo.Student;
 
-interface StudentDAO extends GenericoDAO<Student>{
+interface StudentDAO extends GenericoDAO<Student> {
 
 
     @Override
@@ -27,7 +27,7 @@ interface StudentDAO extends GenericoDAO<Student>{
     public List<Student> getAll() throws SQLiteException;
 
     @Override
-    public List<Student> find (Map<String, Object>criteria) throws SQLiteException;
+    public List<Student> find(Map<String, Object> criteria) throws SQLiteException;
 
 }
 

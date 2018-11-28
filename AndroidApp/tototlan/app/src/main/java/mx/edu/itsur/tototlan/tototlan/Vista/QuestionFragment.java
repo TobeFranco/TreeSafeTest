@@ -30,18 +30,18 @@ public abstract class QuestionFragment extends Fragment {
 
         public QuestionFragment build() {
 
-            if (question.getData().getType()== QuestionData.QuestionType.OPEN) {
+           // if (question.getData().getType()== QuestionData.QuestionType.OPEN) {
                 QuestionFragment questionFragment = OpenQuestionFragment.newInstance((OpenQuestion)question,answer);
                 QUESTIONS=questionFragment;
-            }
-            if (question.getData().getType()== QuestionData.QuestionType.SINGLE_CHOICE) {
+            //}
+           // if (question.getData().getType()== QuestionData.QuestionType.SINGLE_CHOICE) {
                 QuestionFragment questionFragment1 = SingleChoice.newInstance((SingleChoicesQuestions) question, answer);
                 QUESTIONS=questionFragment1;
-            }
-            if (question.getData().getType()== QuestionData.QuestionType.TRUE_FALSE) {
+           // }
+            //if (question.getData().getType()== QuestionData.QuestionType.TRUE_FALSE) {
                 QuestionFragment questionFragment2 = TrueFalseQuestionFragment.newInstance((TrueFalseQuestion)question, answer);
                 QUESTIONS=questionFragment2;
-            }
+           // }
             return QUESTIONS;
         }
     }

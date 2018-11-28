@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
