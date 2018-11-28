@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Vista.SingleChoice">
+    tools:context=".Exams_fragment">
 
-
-
-    <LinearLayout
-        android:id="@+id/contenedor"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listExams"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"></LinearLayout>
+        >
+    </android.support.v7.widget.RecyclerView>
+
 </FrameLayout>

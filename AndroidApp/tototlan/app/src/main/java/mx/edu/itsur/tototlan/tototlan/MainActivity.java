@@ -1,5 +1,6 @@
 package mx.edu.itsur.tototlan.tototlan;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,88 +8,91 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
-import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
-import mx.edu.itsur.tototlan.tototlan.Vista.QuestionFragment;
-import mx.edu.itsur.tototlan.tototlan.accesoDatos.TestSQliteDAO;
-import mx.edu.itsur.tototlan.tototlan.modelo.Answer;
-import mx.edu.itsur.tototlan.tototlan.modelo.OpenQuestion;
-import mx.edu.itsur.tototlan.tototlan.modelo.Question;
-import mx.edu.itsur.tototlan.tototlan.modelo.QuestionData;
-import mx.edu.itsur.tototlan.tototlan.modelo.SingleChoicesQuestions;
-import mx.edu.itsur.tototlan.tototlan.modelo.Test;
-import mx.edu.itsur.tototlan.tototlan.modelo.TrueFalseQuestion;
 
 
 public class MainActivity extends AppCompatActivity {
-// esto me causa problemas con la Autentificacion
-    //private Answer answer= new Answer();
-    //private SingleChoicesQuestions questions = new SingleChoicesQuestions();
-    //private TrueFalseQuestion trueFalseQuestion = new TrueFalseQuestion();
-    //private OpenQuestion openQuestion = new OpenQuestion();
-    //private QuestionFragment questionFragment  = new QuestionFragment.QuestionFragmentBuilder(openQuestion,answer).build();
-    //private FragmentTransaction transaction;
 
-    TextView NumQuestion;
-    Button Next;
-    EditText Answers;
+
     Button logOutBtn;
+    SignInButton loginbtn;
 
-
-
+    private static final int RC_SIGN_IN = 0;
+    private GoogleApiClient mGoogleApiClient;
+    private static final String TAG = "Login";
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        NumQuestion = findViewById(R.id.lblNumQuestion);
-        Next = findViewById(R.id.btnNext);
-        Answers = findViewById(R.id.txtAnswer);
-        // NumQuestion.setText(question.getIdQuestion()+"");
-        //determinado por la pregunta
-        //Question.setText(question.getData().getstatement());
-        //Creates los fragmentos y Transacciones de Fragmentos
-        List<String> opciones = new ArrayList<>();
-        opciones.add("op 1");
-        opciones.add("op 2");
-        opciones.add("op 3");
-        //question.setChoices(opciones);
-//        QuestionFragment questionFragment  = new QuestionFragment.QuestionFragmentBuilder(question,answer).build();
+        loginbtn = (SignInButton) findViewById(R.id.loginbtn);
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
 
-        //question.setType(QuestionData.QuestionType.OPEN);
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+                FirebaseUser user = firebaseAuth.getCurrentUser();
 
 
+                if (firebaseAuth.getCurrentUser() != null) {
+                    Toast.makeText(getApplicationContext(), "usuario " + user.getPhotoUrl(), Toast.LENGTH_SHORT).show();
+                    //Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                    //startActivity(intent);
 
-        //comente esta otra parte de gio
 
-
-      /*  answer.setAnswer("hola");
-        transaction = getSupportFragmentManager().beginTransaction();
-        if (questionFragment != null) {
-            transaction.add(R.id.fragment_container, questionFragment);
-            transaction.commit();
-        }
-            Next.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //aqui es donde puede cambiar el fragmento que desees
-                    questionFragment = new QuestionFragment.QuestionFragmentBuilder(questions,answer).build();
-                    CambiarFragmento();
                 }
-            });
-        */
+
+            }
+        };
+
+
+
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+                        Toast.makeText(getApplicationContext(), connectionResult.getErrorMessage(), Toast.LENGTH_SHORT)
+                                .show();
+
+                    }
+                }).addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
+
+        loginbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signIn();
+            }
+        });
 
 
 
@@ -96,72 +100,71 @@ public class MainActivity extends AppCompatActivity {
             logOutBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                     FirebaseAuth.getInstance().signOut();
-
-
-                    Intent intent = new Intent(MainActivity.this, Login.class);
-                    startActivity(intent);
-
+                    //INICIA ACTIVIDAD
+                   // Intent intent = new Intent(MainActivity.this, Login.class);
+                    //startActivity(intent);
                 }
             });
-
-
-
-            mx.edu.itsur.tototlan.tototlan.modelo.Test t = new mx.edu.itsur.tototlan.tototlan.modelo.Test();
-            TestSQliteDAO sqTest = new TestSQliteDAO(getApplicationContext());
-
-            //'2007-01-01 10:00:00'
-
-            SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-            Time startingTime = new Time(100);
-
-
-            //t.setIdTest(1);
-            t.setDesciption("Examen facil");
-            t.setGroupCode("123");
-            t.setTeacherName("Tierritas");
-            try {
-                t.setStartDate(s.parse(obtenerFecha()));
-                t.setEndDate(s.parse(obtenerFecha()));
-                t.setTotalTime(startingTime);
-            } catch (ParseException e) {
-                Log.e("ERROR2", e.getMessage());
-            }
-            sqTest.add(t);
-            t = sqTest.get(1);
-
-
-            t.setIdTest(1);
-            t.setDesciption("Examen dificil");
-            sqTest.update(t);
-            Toast.makeText(this, "ID" + t.getIdTest() + " tiempo" + t.getTotalTime() + " desc" + t.getDesciption(), Toast.LENGTH_LONG).show();
-
-
         }
 
+    protected void onStart() {
+        super.onStart();
 
-        //Tambien comente esta otra parte gio
+        mAuth.addAuthStateListener(mAuthListener);
+    }
 
-       /** private void CambiarFragmento () {
-            transaction = getSupportFragmentManager().beginTransaction();
-            if (questionFragment != null) {
+    private void signIn() {
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
 
-                transaction.replace(R.id.fragment_container, questionFragment);
-//            transaction.add(R.id.fragment_container, questionFragment);
-                transaction.commit();
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            if (result.isSuccess()) {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = result.getSignInAccount();
+                Toast.makeText(this,"Lllegó hasta aqui al logeado",Toast.LENGTH_SHORT).show();
+
+                firebaseAuthWithGoogle(account);
+                Intent homeActivity = new Intent(MainActivity.this,Home.class);
+                startActivity(homeActivity);
+                finish();
+            } else {
+                Toast.makeText(this,"Lllegó hasta aqui",Toast.LENGTH_SHORT).show();
+                // Google Sign In failed, update UI appropriately
+                // ...
             }
         }
+    }
 
-        */
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
-        private String obtenerFecha () {
-            Calendar cal = Calendar.getInstance();
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String fechaActual = format.format(cal.getTime());
-            return fechaActual;
-        }
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
+
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "signInWithCredential", task.getException());
+                            Toast.makeText(MainActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+    }
     }
 
