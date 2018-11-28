@@ -17,11 +17,11 @@ public class TrueFalseQuestion extends Question {
     }
 
     public void setStatement(String statement){
-        this.question.getData().setstatement(statement);
+        this.question.getData().setStatement(statement);
     }
 
     public String getStatement(){
-        return this.question.getData().getstatement();
+        return this.question.getData().getStatement();
     }
 
     public String getAnswer() {

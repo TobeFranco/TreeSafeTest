@@ -15,7 +15,6 @@ public class SingleChoicesQuestions extends Question {
     public SingleChoicesQuestions(Question question) {
         this.question = question;
         this.genson = new Genson();
-        this.questionData.setType("Single_Choice");
         //this.question.setType(QuestionData.QuestionType.SINGLE_CHOICE);
     }
 
@@ -24,11 +23,11 @@ public class SingleChoicesQuestions extends Question {
     }
 
     public void setStatement(String statement){
-        this.question.getData().setstatement(statement);
+        this.question.getData().setStatement(statement);
     }
 
     public String getStatement(){
-        return this.question.getData().getstatement();
+        return this.question.getData().getStatement();
 
     }
 

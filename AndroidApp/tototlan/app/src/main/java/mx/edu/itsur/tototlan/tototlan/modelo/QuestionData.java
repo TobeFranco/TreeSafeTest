@@ -2,41 +2,38 @@ package mx.edu.itsur.tototlan.tototlan.modelo;
 
 import java.util.Objects;
 
-public class QuestionData extends Question {
+public class QuestionData{
 
-    //public enum  QuestionType{OPEN,MULTIPLE_CHOICE,SINGLE_CHOICE, TRUE_FALSE,RELATIONAL};
-    private long IdQuestion;
+    public enum  QuestionType{OPEN, MULTIPLE_CHOICE, SINGLE_CHOICE, TRUE_FALSE, RELATIONAL}
+
+    private QuestionType type;
     private String statement;
     private String answers;
     private String correct;
-    //private QuestionType type;
-    //Types {'Open','Multiple_Choice','Single_Choice','True_False','Relational'
-    private String type;
 
     public QuestionData() {
     }
 
-
-    public QuestionData(String statement, String answers, String correct, String type) {
+    public QuestionData(QuestionType type, String statement, String answers, String correct) {
+        this.type = type;
         this.statement = statement;
         this.answers = answers;
         this.correct = correct;
+    }
+
+    public QuestionType getType() {
+        return type;
+    }
+
+    public void setType(QuestionType type) {
         this.type = type;
     }
 
-    public String getstatement() {
+    public String getStatement() {
         return statement;
     }
 
-    public long getIdQuestion() {
-        return IdQuestion;
-    }
-
-    public void setIdQuestion(long idQuestion) {
-        IdQuestion = idQuestion;
-    }
-
-    public void setstatement(String statement) {
+    public void setStatement(String statement) {
         this.statement = statement;
     }
 
@@ -56,39 +53,30 @@ public class QuestionData extends Question {
         this.correct = correct;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         QuestionData that = (QuestionData) o;
-        return Objects.equals(statement, that.statement) &&
-                Objects.equals(answers, that.answers) &&
-                Objects.equals(correct, that.correct) &&
-                type == that.type;
+        return getType() == that.getType() &&
+                Objects.equals(getStatement(), that.getStatement()) &&
+                Objects.equals(getAnswers(), that.getAnswers()) &&
+                Objects.equals(getCorrect(), that.getCorrect());
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(statement, answers, correct, type);
+        return Objects.hash(getType(), getStatement(), getAnswers(), getCorrect());
     }
 
     @Override
     public String toString() {
         return "QuestionData{" +
-                "idQuestion ='" + this.getIdQuestion()+ '\'' +
-                "statement='" + statement + '\'' +
+                "type=" + type +
+                ", statement='" + statement + '\'' +
                 ", answers='" + answers + '\'' +
                 ", correct='" + correct + '\'' +
-                ", type=" + type +
                 '}';
     }
 }

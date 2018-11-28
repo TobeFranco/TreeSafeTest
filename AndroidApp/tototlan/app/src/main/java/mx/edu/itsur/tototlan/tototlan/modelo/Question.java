@@ -3,14 +3,17 @@ package mx.edu.itsur.tototlan.tototlan.modelo;
 import java.io.Serializable;
 
 public class Question implements Serializable {
-    private boolean Type;
+
     private long idQuestion;
     private QuestionData data;
 
-
-
     public Question(QuestionData questionData) {
         this.data = questionData;
+    }
+
+    public Question(long idQuestion, QuestionData data) {
+        this.idQuestion = idQuestion;
+        this.data = data;
     }
 
     public Question() {
@@ -33,11 +36,11 @@ public class Question implements Serializable {
         this.data = data;
     }
 
-    /*
-    public QuestionData.QuestionType getType() {
-        return this.getData().getType();
+    @Override
+    public String toString() {
+        return "Question{" +
+                "idQuestion=" + idQuestion +
+                ", data=" + data +
+                '}';
     }
-    public void setType(QuestionData.QuestionType type) {
-        this.getData().setType(type);
-    }*/
 }

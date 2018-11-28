@@ -20,6 +20,6 @@ public interface QuestionDAO extends GenericoDAO<Question> {
 
     public List<Question> getAll() throws  SQLiteException;
 
-    public List<Question> searh(Map<String, Object> criterios) throws SQLiteException;
+    public List<Question> find(Map<String, Object> criterios) throws SQLiteException;
 
 }

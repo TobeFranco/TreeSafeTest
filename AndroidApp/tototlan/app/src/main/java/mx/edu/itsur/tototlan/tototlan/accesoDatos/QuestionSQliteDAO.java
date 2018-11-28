@@ -30,7 +30,7 @@ public class QuestionSQliteDAO implements GenericoDAO<Question> {
             ContentValues values = new ContentValues();
             values.put("COLUMN_IDQUESTION",question.getIdQuestion());
             values.put("COLUMN_TYPE",question.getData().getType().toString());
-            values.put("COLUMN_STATEMENT",question.getData().getstatement());
+            values.put("COLUMN_STATEMENT",question.getData().getStatement());
             values.put("COLUMN_ANSWERS",question.getData().getAnswers());
             values.put("COLUMN_CORRECT",question.getData().getCorrect());
 
@@ -56,8 +56,8 @@ public class QuestionSQliteDAO implements GenericoDAO<Question> {
             if(cursor != null){
                 cursor.moveToFirst();
                 question.setIdQuestion(cursor.getLong(0));
-                questionData.setType(cursor.getString(1));
-                questionData.setstatement(cursor.getString(2));
+                questionData.setType(QuestionData.QuestionType.valueOf(cursor.getString(1)));
+                questionData.setStatement(cursor.getString(2));
                 questionData.setAnswers(cursor.getString(3));
                 questionData.setCorrect(cursor.getString(4));
                 question.setData(questionData);
@@ -74,8 +74,8 @@ public class QuestionSQliteDAO implements GenericoDAO<Question> {
         SQLiteDatabase db = mDBhelper.getReadableDatabase();
         try {
             ContentValues values = new ContentValues();
-            values.put("TYPE",question.getData().getType());
-            values.put("STATEMENT",question.getData().getstatement());
+            values.put("TYPE",question.getData().getType().toString());
+            values.put("STATEMENT",question.getData().getStatement());
             values.put("ANSWERS",question.getData().getAnswers());
             values.put("CORRECT",question.getData().getCorrect());
 
@@ -117,8 +117,8 @@ public class QuestionSQliteDAO implements GenericoDAO<Question> {
             while (cursor.moveToNext()){
 
                 question.setIdQuestion(cursor.getLong(0));
-                questionData.setType(cursor.getString(1));
-                questionData.setstatement(cursor.getString(2));
+                questionData.setType(QuestionData.QuestionType.valueOf(cursor.getString(1)));
+                questionData.setStatement(cursor.getString(2));
                 questionData.setAnswers(cursor.getString(3));
                 questionData.setCorrect(cursor.getString(4));
                 question.setData(questionData);
@@ -158,8 +158,8 @@ public class QuestionSQliteDAO implements GenericoDAO<Question> {
             while (cursor.moveToNext()){
 
                 question.setIdQuestion(cursor.getLong(0));
-                questionData.setType(cursor.getString(1));
-                questionData.setstatement(cursor.getString(2));
+                questionData.setType(QuestionData.QuestionType.valueOf(cursor.getString(1)));
+                questionData.setStatement(cursor.getString(2));
                 questionData.setAnswers(cursor.getString(3));
                 questionData.setCorrect(cursor.getString(4));
                 question.setData(questionData);

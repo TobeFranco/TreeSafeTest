@@ -11,7 +11,6 @@ public class OpenQuestion extends  Question{
     public OpenQuestion(Question question) {
         this.question = question;
         this.genson = new Genson();
-        this.questionData.setType("Open");
         //this.question.setType(QuestionData.QuestionType.OPEN);
     }
 
@@ -20,11 +19,11 @@ public class OpenQuestion extends  Question{
     }
 
     public void setStatement(String statement){
-        this.question.getData().setstatement(statement);
+        this.question.getData().setStatement(statement);
     }
 
     public String getStatement(){
-        return this.question.getData().getstatement();
+        return this.question.getData().getStatement();
     }
 
     public String getAnswer() {
