@@ -42,6 +42,13 @@ public abstract class QuestionFragment extends Fragment {
                 QuestionFragment questionFragment2 = TrueFalseQuestionFragment.newInstance((TrueFalseQuestion)question, answer);
                 QUESTIONS=questionFragment2;
            // }
+           /*}else if(question.getData().getType() == QuestionData.QuestionType.MULTIPLE_CHOICE){
+                MultipleChoiceQuestion MCQ = new MultipleChoiceQuestion(question);
+                QuestionFragment questionFragment = MultipleChoiceFragment.newInstance(MCQ,answer);
+                QUESTIONS = questionFragment;
+             }
+           */
+
             return QUESTIONS;
         }
     }
