@@ -1,5 +1,6 @@
 package mx.edu.itsur.tototlan.tototlan.modelo;
 
+import android.os.Build;
 import android.util.ArraySet;
 
 import java.sql.Time;
@@ -16,6 +17,8 @@ public class Test {
     private Time totalTime;
     private String teacherName;
     private String groupCode;
+
+
 
     public String getDesciption() {
         return desciption;
@@ -71,7 +74,9 @@ public class Test {
     }
 
     public Test(){
-        this.questions = new ArraySet<Question>();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            this.questions = new ArraySet<Question>();
+        }
 
     }
 
