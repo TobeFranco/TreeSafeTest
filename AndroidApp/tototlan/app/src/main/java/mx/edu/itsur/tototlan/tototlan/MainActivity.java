@@ -1,13 +1,16 @@
 package mx.edu.itsur.tototlan.tototlan;
 
+import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -28,7 +31,16 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+
+
+
+    private EditText mEmailField,mPasswordField;
+    private Button mLoginBtn;
+    private Button btnRegistrar;
+    private ProgressDialog progressDialog;
+
+
 
 
     Button logOutBtn;
@@ -47,6 +59,16 @@ public class MainActivity extends AppCompatActivity {
 
         loginbtn = (SignInButton) findViewById(R.id.loginbtn);
         mAuth = FirebaseAuth.getInstance();
+
+        mEmailField = (EditText) findViewById(R.id.mEmailField);
+        mPasswordField = (EditText) findViewById(R.id.mPasswordField);
+        mLoginBtn = (Button) findViewById(R.id.mLoginBtn);
+
+        btnRegistrar = (Button) findViewById(R.id.btnRegistrar);
+
+        progressDialog = new ProgressDialog(this);
+        btnRegistrar.setOnClickListener(this);
+
         mAuthListener = new FirebaseAuth.AuthStateListener() {
 
             @Override
@@ -59,13 +81,23 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "usuario " + user.getPhotoUrl(), Toast.LENGTH_SHORT).show();
                     //Intent intent = new Intent(MainActivity.this, MainActivity.class);
                     //startActivity(intent);
+                    startActivity(new Intent(MainActivity.this,Home.class));
 
+                }else {
+                    // Toast.makeText(MainActivity.this, "Datos Incorrectos", Toast.LENGTH_SHORT).show();
 
                 }
 
             }
         };
 
+        mLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LoginUsuario();
+
+            }
+        });
 
 
         // Configure Google Sign In
@@ -96,24 +128,53 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-            logOutBtn = (Button) findViewById(R.id.logOutBtn);
-            logOutBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-                    FirebaseAuth.getInstance().signOut();
-                    //INICIA ACTIVIDAD
-                   // Intent intent = new Intent(MainActivity.this, Login.class);
-                    //startActivity(intent);
-                }
-            });
-        }
+        logOutBtn = (Button) findViewById(R.id.logOutBtn);
+        logOutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                FirebaseAuth.getInstance().signOut();
+                //INICIA ACTIVIDAD
+                // Intent intent = new Intent(MainActivity.this, Login.class);
+                //startActivity(intent);
+            }
+        });
+    }
 
     protected void onStart() {
         super.onStart();
 
         mAuth.addAuthStateListener(mAuthListener);
     }
+    private void LoginUsuario(){
+
+
+        String email = mEmailField.getText().toString();
+        String password = mPasswordField.getText().toString();
+
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "signInWithEmail", task.getException());
+                            Toast.makeText(MainActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                        // ...
+                    }
+                });
+    }
+
+
+
+
 
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
@@ -166,5 +227,45 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+    private void registrarUsuario() {
+
+        //Obtenemos el email y la contraseña desde las cajas de texto
+        String email = mEmailField.getText().toString().trim();
+        String password = mPasswordField.getText().toString().trim();
+
+        //Verificamos que las cajas de texto no esten vacías
+        if (TextUtils.isEmpty(email)) {
+            Toast.makeText(this, "Se debe ingresar un email", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            Toast.makeText(this, "Falta ingresar la contraseña", Toast.LENGTH_LONG).show();
+            return;
+        }
+        progressDialog.setMessage("Realizando registro en linea...");
+        progressDialog.show();
+
+        //creating a new user
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        //checking if success
+                        if(task.isSuccessful()){
+
+                            Toast.makeText(MainActivity.this,"Se ha registrado el usuario con el email: "+ mEmailField.getText(),Toast.LENGTH_LONG).show();
+                        }else{
+
+                            Toast.makeText(MainActivity.this,"No se pudo registrar el usuario ",Toast.LENGTH_LONG).show();
+                        }
+                        progressDialog.dismiss();
+                    }
+                });
     }
 
+    @Override
+    public void onClick(View v) {
+        registrarUsuario();
+    }
+}
