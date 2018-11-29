@@ -7,6 +7,11 @@
 
     tools:context=".Home">
 
+    <include
+        layout="@layout/logout_bar"
+        android:id="@+id/logout_bar"
+        ></include>
+
     <FrameLayout
         android:id="@+id/frame_layout"
         android:animateLayoutChanges="true"
