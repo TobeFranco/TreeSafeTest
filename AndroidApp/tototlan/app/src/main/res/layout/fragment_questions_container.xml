@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".QuestionsContainer">
+
+    <FrameLayout
+        android:id="@+id/frame_layout_playing"
+        android:layout_width="382dp"
+        android:layout_height="518dp"
+        android:layout_alignParentTop="true"
+        android:animateLayoutChanges="true"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="3dp">
+
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+
+        android:text="Back"
+        tools:layout_editor_absoluteX="280dp"
+        tools:layout_editor_absoluteY="521dp" />
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:text="Next"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="521dp" />
+
+</RelativeLayout>
