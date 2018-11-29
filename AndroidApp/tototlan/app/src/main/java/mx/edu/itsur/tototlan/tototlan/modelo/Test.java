@@ -1,14 +1,24 @@
 package mx.edu.itsur.tototlan.tototlan.modelo;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.PrimaryKey;
 import android.util.ArraySet;
 
 import java.sql.Time;
 import java.util.Date;
 import java.util.Set;
 
+@Entity(tableName = "tests",
+        foreignKeys =
+        @ForeignKey(entity = AnswerSheet.class,
+                parentColumns = "testID",
+                childColumns = "answersSheetID"))
 public class Test {
 
+    @PrimaryKey
     private long idTest;
+    private int answersSheetID;
     private Set<Question> questions;
     private String desciption;
     private Date startDate;

@@ -1,9 +1,14 @@
 package mx.edu.itsur.tototlan.tototlan.modelo;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.io.Serializable;
 
+@Entity(tableName = "questions")
 public class Question implements Serializable {
 
+    @PrimaryKey
     private long idQuestion;
     private QuestionData data;
 
