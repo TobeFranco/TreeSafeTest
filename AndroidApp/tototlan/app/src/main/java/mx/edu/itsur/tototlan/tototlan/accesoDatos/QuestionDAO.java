@@ -1,5 +1,10 @@
 package mx.edu.itsur.tototlan.tototlan.accesoDatos;
 
+import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
+import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 import android.database.sqlite.SQLiteException;
 
 import java.util.List;
@@ -7,18 +12,23 @@ import java.util.Map;
 
 import mx.edu.itsur.tototlan.tototlan.modelo.Question;
 
+@Dao
 public interface QuestionDAO extends GenericoDAO<Question> {
 
+    @Insert()
+    boolean add(Question entidad) throws SQLiteException;
 
-    public boolean add(Question entidad) throws SQLiteException;
+    @Query("SELECT * FROM questions WHERE idQuestion = :identificador")
+    Question get(long identificador) throws SQLiteException;
 
-    public Question get(long identificador) throws SQLiteException;
+    @Update()
+    boolean update(Question entidad) throws SQLiteException;
 
-    public boolean update(Question entidad) throws SQLiteException;
+    @Delete()
+    boolean delete(long identificador) throws  SQLiteException;
 
-    public boolean delete(long identificador) throws  SQLiteException;
-
-    public List<Question> getAll() throws  SQLiteException;
+    @Query("SELECT * FROM questions")
+    List<Question> getAll() throws SQLiteException;
 
     public List<Question> find(Map<String, Object> criterios) throws SQLiteException;
 
