@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final int RC_SIGN_IN = 0;
     private GoogleApiClient mGoogleApiClient;
     private static final String TAG = "Login";
-    private FirebaseAuth mAuth;
+    public static FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
@@ -78,10 +78,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
                 if (firebaseAuth.getCurrentUser() != null) {
-                    Toast.makeText(getApplicationContext(), "usuario " + user.getPhotoUrl(), Toast.LENGTH_SHORT).show();
                     //Intent intent = new Intent(MainActivity.this, MainActivity.class);
                     //startActivity(intent);
-                    startActivity(new Intent(MainActivity.this,Home.class));
+
 
                 }else {
                     // Toast.makeText(MainActivity.this, "Datos Incorrectos", Toast.LENGTH_SHORT).show();
@@ -127,18 +126,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
 
-
-        logOutBtn = (Button) findViewById(R.id.logOutBtn);
-        logOutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-                FirebaseAuth.getInstance().signOut();
-                //INICIA ACTIVIDAD
-                // Intent intent = new Intent(MainActivity.this, Login.class);
-                //startActivity(intent);
-            }
-        });
     }
 
     protected void onStart() {
@@ -191,16 +178,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (result.isSuccess()) {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
-                Toast.makeText(this,"Lllegó hasta aqui al logeado",Toast.LENGTH_SHORT).show();
 
                 firebaseAuthWithGoogle(account);
                 Intent homeActivity = new Intent(MainActivity.this,Home.class);
                 startActivity(homeActivity);
                 finish();
             } else {
-                Toast.makeText(this,"Lllegó hasta aqui",Toast.LENGTH_SHORT).show();
-                // Google Sign In failed, update UI appropriately
-                // ...
+
             }
         }
     }
