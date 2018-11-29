@@ -1,10 +1,24 @@
 package mx.edu.itsur.tototlan.tototlan.modelo;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.io.Serializable;
 
+@Entity(tableName = "answers",
+        foreignKeys = {
+                @ForeignKey(entity = AnswerSheet.class,
+                        parentColumns = "answerID",
+                        childColumns = "answersSheetID"),
+                @ForeignKey(entity = Question.class,
+                        parentColumns = "answerID",
+                        childColumns = "questionID")})
 public class Answer implements Serializable{
 
+    @PrimaryKey
     private long idAnswer;
+    private int answersSheetID;
     private String answer;
     private float evaluation;
     private Question question;

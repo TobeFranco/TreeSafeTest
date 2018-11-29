@@ -1,7 +1,12 @@
 package mx.edu.itsur.tototlan.tototlan.modelo;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
+@Entity(tableName = "students")
 public class Student  {
 
+    @PrimaryKey
     private String idStudent;
     private String user;
     private String pass;
