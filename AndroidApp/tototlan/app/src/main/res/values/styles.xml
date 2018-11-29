@@ -1,5 +1,17 @@
 <resources>
 
+
+    <style name="CustomToolbarStyle" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="CustomPopUpStyle" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="overlapAnchor">false</item>
+        <item name="android:dropDownVerticalOffset">-4dp</item>
+    </style>
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
 
     </style>
