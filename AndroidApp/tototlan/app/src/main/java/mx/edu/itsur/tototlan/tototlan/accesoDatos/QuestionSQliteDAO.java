@@ -15,6 +15,7 @@ import java.util.Set;
 import mx.edu.itsur.tototlan.tototlan.DataBase.DBhelper;
 import mx.edu.itsur.tototlan.tototlan.modelo.Question;
 import mx.edu.itsur.tototlan.tototlan.modelo.QuestionData;
+import mx.edu.itsur.tototlan.tototlan.modelo.QuestionType;
 
 public class QuestionSQliteDAO implements GenericoDAO<Question> {
 
@@ -56,7 +57,7 @@ public class QuestionSQliteDAO implements GenericoDAO<Question> {
             if(cursor != null){
                 cursor.moveToFirst();
                 question.setIdQuestion(cursor.getLong(0));
-                questionData.setType(QuestionData.QuestionType.valueOf(cursor.getString(1)));
+                questionData.setType(QuestionType.valueOf(cursor.getString(1)));
                 questionData.setStatement(cursor.getString(2));
                 questionData.setAnswers(cursor.getString(3));
                 questionData.setCorrect(cursor.getString(4));
@@ -117,7 +118,7 @@ public class QuestionSQliteDAO implements GenericoDAO<Question> {
             while (cursor.moveToNext()){
 
                 question.setIdQuestion(cursor.getLong(0));
-                questionData.setType(QuestionData.QuestionType.valueOf(cursor.getString(1)));
+                questionData.setType(QuestionType.valueOf(cursor.getString(1)));
                 questionData.setStatement(cursor.getString(2));
                 questionData.setAnswers(cursor.getString(3));
                 questionData.setCorrect(cursor.getString(4));
@@ -158,7 +159,7 @@ public class QuestionSQliteDAO implements GenericoDAO<Question> {
             while (cursor.moveToNext()){
 
                 question.setIdQuestion(cursor.getLong(0));
-                questionData.setType(QuestionData.QuestionType.valueOf(cursor.getString(1)));
+                questionData.setType(QuestionType.valueOf(cursor.getString(1)));
                 questionData.setStatement(cursor.getString(2));
                 questionData.setAnswers(cursor.getString(3));
                 questionData.setCorrect(cursor.getString(4));

@@ -3,7 +3,6 @@ package mx.edu.itsur.tototlan.tototlan.modelo;
 import java.io.Serializable;
 
 public class Question implements Serializable {
-
     private long idQuestion;
     private QuestionData data;
 

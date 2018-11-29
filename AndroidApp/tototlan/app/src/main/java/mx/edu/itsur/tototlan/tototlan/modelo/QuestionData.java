@@ -4,8 +4,6 @@ import java.util.Objects;
 
 public class QuestionData{
 
-    public enum  QuestionType{OPEN, MULTIPLE_CHOICE, SINGLE_CHOICE, TRUE_FALSE, RELATIONAL}
-
     private QuestionType type;
     private String statement;
     private String answers;
